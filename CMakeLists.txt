@@ -9,17 +9,13 @@ if (NOT FIPS_IMPORT)
     fips_project(fips-RenderCore)
 endif()
 
-
 fips_begin_lib(md5)
-	fips_vs_disable_warnings(4312)
 	fips_dir(md5)
 	fips_files( 
 		md5.c   
 		md5.h   		     
     	)
-fips_end_lib() 
-
-
-if (NOT FIPS_IMPORT)
-    fips_finish()
+fips_end_lib(md5) 
+if (FIPS_CLANG)
+    set_target_properties(md5 PROPERTIES COMPILE_FLAGS "-Wno-shift-negative-value")
 endif()
